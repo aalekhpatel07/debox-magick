@@ -4,9 +4,27 @@
 
 ## Using [Image Magick](https://imagemagick.org/)
 
+### Example
+
+> [!NOTE]
+>
+> This example image has been obtained from [Photo by Kat Smith from Pexels](https://www.pexels.com/photo/shallow-focus-photography-of-adult-black-and-white-border-collie-551628/) and is free to use.
+
+#### Original image [1919x1281] 160K
+
+![original image of a dog without any letterboxing or pillarboxing](pexels-katlovessteve-551628.jpg)
+
+#### Letterboxed and Pillarboxed version [1919x1281] 111K
+
+![A letterboxed and pillarboxed version of the original image ](pexels-katlovessteve-551628-boxed.jpg)
+
+#### After detecting and removing the letterboxing and pillarboxing [802x802] 63K
+
+![After detecting and removing the letterboxing and pillarboxing](pexels-katlovessteve-551628-after-debox.jpg)
+
 ### Solution
 
-The following script assumes you have [Image Magick (v>=7)](https://imagemagick.org/) and [ripgrep](https://github.com/BurntSushi/ripgrep) installed on your machine. You can store this file in your `/usr/local/bin/debox` and then run `sudo chmod +x /usr/local/bin/debox`.
+The following script assumes you have [Image Magick (v7+)](https://imagemagick.org/) and [ripgrep](https://github.com/BurntSushi/ripgrep) installed on your machine. You can store this file in your `/usr/local/bin/debox` and then run `sudo chmod +x /usr/local/bin/debox`. Admittedly, this script is not the fastest way to accomplish this but this is just a proof-of-concept that Image Magick can be used for this task.
 
 #### Usage
 
@@ -172,7 +190,7 @@ Given a source image called `image.jpeg`, take two copies of it, blur one of the
 ```sh
 convert image.jpeg \
     \( -clone 0 -blur 0x20 \) \
-    \( -clone 0 -resize 800x800 \) \
+    \( -clone 0 -resize 800x800\! \) \
     -delete 0 \
     -gravity center \
     -compose over \
